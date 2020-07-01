@@ -18,5 +18,7 @@ Auth::routes();
 
 Route::get('/', 'GuestController@index');
 Route::post('/save', 'GuestController@saveData');
+Route::get('/company', 'CompanyController@index');
+Route::post('/company/save', 'CompanyController@saveData');
 Route::get('/home', 'Administrator\GuestController@index')->name('home');
 Route::get('/guest/delete/{id}', 'Administrator\GuestController@delete')->name('home');

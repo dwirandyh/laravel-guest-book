@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Guest;
+use App\Models\CompanyGuest;
 use Intervention\Image\Facades\Image;
 
-class GuestController extends Controller
+class CompanyController extends Controller
 {
 
     /**
@@ -21,7 +21,7 @@ class GuestController extends Controller
 
     public function index()
     {
-        return view('guest/guest_form');
+        return view('guest/company_form');
     }
 
     public function saveData(Request $request)
@@ -34,6 +34,8 @@ class GuestController extends Controller
             'identity_file' => 'required',
             'photo_file' => 'required',
             'phone_number' => 'required',
+            'company' => 'required',
+            'role' => 'required',
             'relation' => 'required',
             'purpose' => 'required'
         ];
@@ -46,12 +48,15 @@ class GuestController extends Controller
 
         $input = [
             'name' => $request->post('name'),
+            'is_leader' => $request->post('is_leader', 0),
             'email' => $request->post('email'),
             'identity' => $request->post('identity'),
             'identity_id' => $request->post('identity_id'),
             'identity_file' => 'identity-' . time() . '.jpg',
             'photo_file' => 'photo-' . time() . '.jpg',
             'phone_number' => $request->post('phone_number'),
+            'company' => $request->post('company'),
+            'role' => $request->post('role'),
             'intended_person' => empty($request->post('intended_person')) ? $request->post('intended_person_name') : $request->post('intended_person'),
             'relation' => $request->post('relation'),
             'purpose' => $request->post('purpose'),
@@ -61,7 +66,7 @@ class GuestController extends Controller
         $this->saveIdentityFile($input['identity_file'], $request->post('identity_file'));
         $this->savePhotoFile($input['photo_file'], $request->post('photo_file'));
 
-        Guest::create($input);
+        CompanyGuest::create($input);
 
         return back()->with('success', 'Buku tamu berhasil disimpan');
     }

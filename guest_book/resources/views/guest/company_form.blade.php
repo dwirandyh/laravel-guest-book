@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Form Buku Tamu Pribadi</title>
+    <title>Form Buku Tamu Instansi</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,7 +23,7 @@
 <body class="hold-transition login-page col-sm-12">
     <div class="login-box-2 col-sm-3">
         <div class="login-logo">
-            <a href="./"><b>Buku </b>Tamu Pribadi</a>
+            <a href="./company"><b>Buku </b>Tamu Instansi</a>
         </div>
         <!-- /.login-logo -->
         <div class="col-sm-12">
@@ -38,12 +38,18 @@
                     </div>
                     @endif
 
-                    <form method="post" action="{{ url('/save') }}">
+                    <form method="post" action="{{ url('/company/save') }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Nama</label>
                             <input type="text" name="name" class="form-control" placeholder="Masukan nama lengkap"
                                 value="{{ old('name') }}">
+                            <div class="form-check">
+                                <input class="form-check-input" name="is_leader" type="checkbox" value="1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Pempimpin Grup
+                                </label>
+                            </div>
                             @if($errors->has('name'))
                             <div class="text-danger">{{ $errors->first('name') }}</div>
                             @endif
@@ -121,6 +127,24 @@
                                 placeholder="Masukan nomor telepon" value="{{ old('phone_number') }}">
                             @if($errors->has('phone_number'))
                             <div class="text-danger">{{ $errors->first('phone_number') }}</div>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label>Instansi</label>
+                            <input type="text" name="company" class="form-control" placeholder="Masukan nama instansi"
+                                value="{{ old('company') }}">
+                            @if($errors->has('company'))
+                            <div class="text-danger">{{ $errors->first('company') }}</div>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jabatan</label>
+                            <input type="text" name="role" class="form-control" placeholder="Masukan jabatan"
+                                value="{{ old('role') }}">
+                            @if($errors->has('role'))
+                            <div class="text-danger">{{ $errors->first('role') }}</div>
                             @endif
                         </div>
 
