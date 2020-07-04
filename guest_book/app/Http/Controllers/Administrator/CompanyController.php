@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Exports\GuestExport;
+use App\Exports\CompanyGuestExport;
 use App\Http\Controllers\Controller;
-use App\Imports\GuestImport;
-use App\Models\Guest;
-use Barryvdh\DomPDF\PDF;
+use App\Imports\CompanyGuestImport;
+use App\Models\CompanyGuest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
-class GuestController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -30,29 +29,29 @@ class GuestController extends Controller
      */
     public function index()
     {
-        $data = Guest::all();
+        $data = CompanyGuest::all();
         $auth = Auth::user();
 
         $stat = [
-            'today' => Guest::whereDate('created_at', date('Y-m-d'))->count(),
-            'total' => Guest::count()
+            'today' => CompanyGuest::whereDate('created_at', date('Y-m-d'))->count(),
+            'total' => CompanyGuest::count()
         ];
 
-        return view('administrator/page/guest', ['data' => $data, 'auth' => $auth, 'stat' => $stat]);
-    }
-
-    public function checkout($id)
-    {
-        $guest = Guest::find($id);
-        $guest->checkout = date('Y-m-d G:i:s');
-        $guest->save();
-        return back()->with('success', 'Checkout berhasil dilakukan');
+        return view('administrator/page/company', ['data' => $data, 'auth' => $auth, 'stat' => $stat]);
     }
 
     public function delete($id, Request $request)
     {
-        Guest::destroy($id);
+        CompanyGuest::destroy($id);
         return back()->with('success', 'Data buku tamu berhasil dihapus');
+    }
+
+    public function checkout($id)
+    {
+        $guest = CompanyGuest::find($id);
+        $guest->checkout = date('Y-m-d G:i:s');
+        $guest->save();
+        return back()->with('success', 'Checkout berhasil dilakukan');
     }
 
     public function report(Request $request)
@@ -60,7 +59,7 @@ class GuestController extends Controller
         $from = $request->get('from');
         $to = $request->get('to');
 
-        $data = Guest::whereDate('created_at', '>=', $from)
+        $data = CompanyGuest::whereDate('created_at', '>=', $from)
             ->whereDate('created_at', '<=', $to)
             ->get();
 
@@ -72,19 +71,19 @@ class GuestController extends Controller
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->setPaper('a4', 'landscape');
-        $pdf->loadView('report/guest', $data);
+        $pdf->loadView('report/company', $data);
         return $pdf->stream();
     }
 
     public function export()
     {
-        return Excel::download(new GuestExport, 'guest-personal.xlsx');
+        return Excel::download(new CompanyGuestExport, 'guest-company.xlsx');
     }
 
     public function import(Request $request)
     {
         if ($request->file('excel_file')) {
-            Excel::import(new GuestImport, $request->file('excel_file'));
+            Excel::import(new CompanyGuestImport, $request->file('excel_file'));
             return back()->with('success', 'Data berhasil di import');
         }
         return back();

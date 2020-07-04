@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Halaman Buku Tamu - Personal</h1>
+                    <h1>Halaman Buku Tamu - Instansi</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -56,7 +56,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data Buku Tamu - Personal</h3>
+                <h3 class="card-title">Data Buku Tamu - Instansi</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
@@ -76,17 +76,16 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <a href="{{ url('/guest')}}" target="_blank" class="btn btn-sm btn-info"> Form Buku Tamu </a>
+                        <a href="{{ url('/company')}}" target="_blank" class="btn btn-sm btn-info"> Form Buku Tamu </a>
                         <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#report-dialog">
                             Cetak Laporan </a>
-                        <a href="{{ url('/administrator/guest/export') }}" target="_blank"
-                            class="btn btn-sm btn-secondary"> Unduh
-                            Excel</a>
+                        <a href="{{ url('/administrator/company/export') }}" target="_blank"
+                            class="btn btn-sm btn-secondary"> Unduh Excel</a>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div>
                             <form class="form-inline" enctype="multipart/form-data" method="POST"
-                                action="{{ url('/administrator/guest/import') }}">
+                                action="{{ url('/administrator/company/import') }}">
                                 @csrf
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Import Excel</label>
                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
@@ -106,6 +105,8 @@
                             <th colspan="2">Identitas</th>
                             <th>Nama Tamu</th>
                             <th>Email</th>
+                            <th>Instansi</th>
+                            <th>Yang dituju</th>
                             <th>Keperluan</th>
                             <th>Aksi</th>
                         </tr>
@@ -127,10 +128,12 @@
                                     Unduh Identitas
                                 </a>
                             </td>
-                            <td>{{ $guest->name }}</td>
+                            <td>{{ $guest->name }} <b>{{ ($guest->is_leader == 1 ? ' (Ketua)' : '' )}}</b></td>
                             <td>{{ $guest->email }}</td>
+                            <td>{{ $guest->company }}</td>
+                            <td>{{ $guest->intended_person }}</td>
                             <td>{{ $guest->purpose }}</td>
-                            <td><a href="{{ url('/administrator/guest/delete/' . $guest->id) }}"
+                            <td><a href="{{ url('/administrator/company/delete/' . $guest->id) }}"
                                     class="btn btn-danger active">
                                     Hapus
                                 </a>
@@ -153,12 +156,11 @@
 </div>
 <!-- /.content-wrapper -->
 
-
 <!-- Report Dialog -->
 <div class="modal fade" tabindex="-1" role="dialog" id="report-dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="{{ url('/administrator/guest/report') }}" target="_blank">
+            <form action="{{ url('/administrator/company/report') }}" target="_blank">
                 <div class="modal-header">
                     <h5 class="modal-title">Cetak Laporan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

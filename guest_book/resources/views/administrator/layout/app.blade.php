@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    @yield('css')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -67,10 +69,33 @@
                         data-accordion="false">
                         <li class="nav-header">Menu Utama</li>
                         <li class="nav-item">
-                            <a href="/guest-book" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>Buku Tamu</p>
+                            <a href="{{ url('/') }}" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>Dashboard</p>
                             </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-file"></i>
+                                <p>
+                                    Buku Tamu
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item active">
+                                    <a href="/administrator/guest" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Personal</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/administrator/company" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Instansi</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
@@ -126,9 +151,12 @@
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
+                "order": [[1, "desc"]]
             });
         });
     </script>
+
+    @yield('js')
 </body>
 
 </html>

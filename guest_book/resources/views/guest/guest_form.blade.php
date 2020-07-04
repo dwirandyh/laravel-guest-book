@@ -38,7 +38,7 @@
                     </div>
                     @endif
 
-                    <form method="post" action="{{ url('/save') }}">
+                    <form method="post" action="{{ url('/guest/save') }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Nama</label>
