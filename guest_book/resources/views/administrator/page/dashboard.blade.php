@@ -64,7 +64,7 @@
                         $estimatedCheckout = strtotime('+' . $data->estimated_time . ' minutes',
                         strtotime($data->created_at));
                         @endphp
-                        <tr>
+                        <tr data-checkout="{{ date('Y-m-d G:i:s', $estimatedCheckout) }}">
                             <td>{{ $data->id }}</td>
                             <td>{{ date_format($date, 'd/m/yy G:i:s') }}</td>
                             <td>{{ date('d/m/yy G:i:s', $estimatedCheckout) }}</td>

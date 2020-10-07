@@ -18,12 +18,33 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        .bg {
+            /* The image used */
+            background-image: url("{{ asset('bpk-building.jpg') }}");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .title-color {
+            color: black
+        }
+    </style>
 </head>
 
-<body class="hold-transition login-page col-sm-12">
+<body class="hold-transition login-page col-sm-12 bg">
     <div class="login-box-2 col-sm-3">
         <div class="login-logo">
-            <a href="./company"><b>Buku </b>Tamu Instansi</a>
+            <!-- ================ DISINI GANTI BACKGROUND ================ -->
+            <img src="{{ asset('bpk-logo.png') }}" style="height: 100px; width: 100px; margin-top:50px;">
+            <div class="title-color"><b>Buku </b>Tamu Instansi</div>
         </div>
         <!-- /.login-logo -->
         <div class="col-sm-12">
@@ -266,7 +287,8 @@
                 width: width,
                 height: width,
                 image_format: 'jpeg',
-                jpeg_quality: 90
+                jpeg_quality: 90,
+                flip_horiz: true
             });
 
             $("#intended-person-name-layout").hide();
