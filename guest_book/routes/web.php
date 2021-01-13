@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-
+Route::get('/', 'GuestController@index');
 Route::get('/guest', 'GuestController@index');
 Route::post('/guest/save', 'GuestController@saveData');
 Route::get('/company', 'CompanyController@index');
 Route::post('/company/save', 'CompanyController@saveData');
-Route::get('/', 'Administrator\DashboardController@index')->name('home');
+Route::get('/home', 'Administrator\DashboardController@index')->name('home');
 
 Route::get('/administrator/guest', 'Administrator\GuestController@index');
 Route::get('/administrator/guest/delete/{id}', 'Administrator\GuestController@delete');
