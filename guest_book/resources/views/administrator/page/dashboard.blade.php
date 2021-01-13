@@ -48,7 +48,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Checkin</th>
+                            <th>Isi Form</th>
+                            <th>Tgl Check In</th>
                             <th>Perkiraan Checkout</th>
                             <th colspan="2">Identitas</th>
                             <th>Nama Tamu</th>
@@ -60,14 +61,16 @@
                     <tbody>
                         @foreach ($guest as $data)
                         @php
+                        $visitDate = date_create($data->visit_date);
                         $date = date_create($data->created_at);
                         $estimatedCheckout = strtotime('+' . $data->estimated_time . ' minutes',
-                        strtotime($data->created_at));
+                        strtotime($data->visit_date));
                         @endphp
                         <tr data-checkout="{{ date('Y-m-d G:i:s', $estimatedCheckout) }}">
                             <td>{{ $data->id }}</td>
-                            <td>{{ date_format($date, 'd/m/yy G:i:s') }}</td>
-                            <td>{{ date('d/m/yy G:i:s', $estimatedCheckout) }}</td>
+                            <td>{{ date_format($date, 'd/m/Y G:i:s') }}</td>
+                            <td>{{ date_format($visitDate, 'd/m/Y G:i:s') }}</td>
+                            <td>{{ date('d/m/Y G:i:s', $estimatedCheckout) }}</td>
                             <td>
                                 {{ $data->identity }}
                             </td>
@@ -113,7 +116,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Checkin</th>
+                            <th>Tgl Isi Form</th>
+                            <th>Tgl Check In</th>
                             <th>Perkiraan Checkout</th>
                             <th colspan="2">Identitas</th>
                             <th>Nama Tamu</th>
@@ -126,14 +130,16 @@
                     <tbody>
                         @foreach ($company as $data)
                         @php
+                        $visitDate = date_create($data->visit_date);
                         $date = date_create($data->created_at);
                         $estimatedCheckout = strtotime('+' . $data->estimated_time . ' minutes',
                         strtotime($data->created_at));
                         @endphp
                         <tr data-checkout="{{ date('Y-m-d G:i:s', $estimatedCheckout) }}">
                             <td>{{ $data->id }}</td>
-                            <td>{{ date_format($date, 'd/m/yy G:i:s') }}</td>
-                            <td>{{ date('d/m/yy G:i:s', $estimatedCheckout) }}</td>
+                            <td>{{ date_format($date, 'd/m/Y G:i:s') }}</td>
+                            <td>{{ date_format($visitDate, 'd/m/Y G:i:s') }}</td>
+                            <td>{{ date('d/m/Y G:i:s', $estimatedCheckout) }}</td>
                             <td>
                                 {{ $data->identity }}
                             </td>

@@ -28,6 +28,7 @@ class GuestController extends Controller
     {
         $rules = [
             'name' => 'required',
+            'visit_date' => 'required',
             'email' => 'required|email',
             'identity' => 'required',
             'identity_id' => 'required',
@@ -46,6 +47,7 @@ class GuestController extends Controller
 
         $input = [
             'name' => $request->post('name'),
+            'visit_date' => $request->post('visit_date'),
             'email' => $request->post('email'),
             'identity' => $request->post('identity'),
             'identity_id' => $request->post('identity_id'),
@@ -63,7 +65,7 @@ class GuestController extends Controller
 
         Guest::create($input);
 
-        return back()->with('success', 'Buku tamu berhasil disimpan');
+        return back()->with('success', 'Anda sudah berhasil mengisi buku tamu');
     }
 
     private function saveIdentityFile($imageName, $image)

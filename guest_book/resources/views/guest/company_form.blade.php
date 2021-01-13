@@ -77,6 +77,15 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Tanggal Check In</label>
+                            <input type="datetime-local" class="form-control" name="visit_date"
+                                value="{{ old('visit_date', date('Y-m-d') . 'T'. date('H:i')) }}">
+                            @if($errors->has('visit_date'))
+                            <div class="text-danger">{{ $errors->first('visit_date') }}</div>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="email" class="form-control"
                                 placeholder="Masukan email dengan benar" value="{{ old('email') }}">
