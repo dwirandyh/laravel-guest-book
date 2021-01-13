@@ -77,15 +77,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Tanggal Check In</label>
-                            <input type="datetime-local" class="form-control" name="visit_date"
-                                value="{{ old('visit_date', date('Y-m-d') . 'T'. date('H:i')) }}">
-                            @if($errors->has('visit_date'))
-                            <div class="text-danger">{{ $errors->first('visit_date') }}</div>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="email" class="form-control"
                                 placeholder="Masukan email dengan benar" value="{{ old('email') }}">
@@ -230,7 +221,7 @@
                                     Menit
                                     <select class="form-control" name="estimated_time_minute"
                                         placeholder="Pilih salah satu">
-                                        <option selected>0 Menit</option>
+                                        <option value="0">0 Menit</option>
                                         <option value="15" selected>15 Menit</option>
                                         <option value="30">30 Menit</option>
                                         <option value="45">45 Menit</option>
