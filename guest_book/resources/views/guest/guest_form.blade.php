@@ -304,7 +304,17 @@
 
             var title = "Foto Identitas"
 
+            // use back camera
+            Webcam.set('constraints',{
+                    facingMode: "environment"
+                });
+
             if (id == "face") {
+                // use front camera
+                Webcam.set('constraints',{
+                    facingMode: ""
+                });
+
                 title = "Foto Wajah";
             } else if (id == "swab") {
                 title = "Foto Hasil Swab/Test";
