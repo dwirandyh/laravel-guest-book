@@ -34,6 +34,7 @@ class GuestController extends Controller
             'identity_id' => 'required',
             'identity_file' => 'required',
             'photo_file' => 'required',
+            'swab_file' => 'required',
             'phone_number' => 'required',
             'relation' => 'required',
             'purpose' => 'required'
@@ -53,6 +54,7 @@ class GuestController extends Controller
             'identity_id' => $request->post('identity_id'),
             'identity_file' => 'identity-' . time() . '.jpg',
             'photo_file' => 'photo-' . time() . '.jpg',
+            'swab_file' => 'swab-' . time() . '.jpg',
             'phone_number' => $request->post('phone_number'),
             'intended_person' => empty($request->post('intended_person')) ? $request->post('intended_person_name') : $request->post('intended_person'),
             'relation' => $request->post('relation'),
@@ -62,6 +64,7 @@ class GuestController extends Controller
 
         $this->saveIdentityFile($input['identity_file'], $request->post('identity_file'));
         $this->savePhotoFile($input['photo_file'], $request->post('photo_file'));
+        $this->saveSwabFile($input['swab_file'], $request->post('swab_file'));
 
         Guest::create($input);
 
@@ -77,6 +80,12 @@ class GuestController extends Controller
     private function savePhotoFile($imageName, $image)
     {
         $path = public_path() . '/img/photo/' . $imageName;
+        Image::make(file_get_contents($image))->save($path);
+    }
+
+    private function saveSwabFile($imageName, $image)
+    {
+        $path = public_path() . '/img/swab/' . $imageName;
         Image::make(file_get_contents($image))->save($path);
     }
 }

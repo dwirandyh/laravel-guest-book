@@ -146,6 +146,25 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Hasil Swab/Test</label>
+                                    @if($errors->has('swab_file'))
+                                    <div class="text-danger">{{ $errors->first('swab_file') }}</div>
+                                    @endif
+                                    <div class="col-12">
+                                        <div id="camera-result-swab"></div>
+                                    </div>
+                                    <br>
+                                    <input type="hidden" name="swab_file" class="image-field-swab">
+                                    <button type="button" onclick="openCameraDialog('swab')"
+                                        class="btn btn-primary btn-block">Buka
+                                        Kamera</a>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>No Telepon</label>
                             <input type="text" name="phone_number" class="form-control"
@@ -282,7 +301,17 @@
 
         function openCameraDialog(id){
             selectedCamera = id
-            Webcam.attach( '#my_camera' );
+
+            var title = "Foto Identitas"
+
+            if (id == "face") {
+                title = "Foto Wajah";
+            } else if (id == "swab") {
+                title = "Foto Hasil Swab/Test";
+            }
+
+            Webcam.attach('#my_camera');
+            $("#camera-modal .modal-title").text(title);
             $("#camera-modal").modal('show');
         }
 

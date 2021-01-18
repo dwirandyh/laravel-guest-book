@@ -51,7 +51,7 @@
                             <th>Isi Form</th>
                             <th>Tgl Check In</th>
                             <th>Perkiraan Checkout</th>
-                            <th colspan="2">Identitas</th>
+                            <th colspan="3">Identitas</th>
                             <th>Nama Tamu</th>
                             <th>Email</th>
                             <th>Keperluan</th>
@@ -72,13 +72,22 @@
                             <td>{{ date_format($visitDate, 'd/m/Y G:i:s') }}</td>
                             <td>{{ date('d/m/Y G:i:s', $estimatedCheckout) }}</td>
                             <td>
-                                {{ $data->identity }}
+                                <button type="button" class="btn btn-sm btn-primary"
+                                    onclick="previewFile('{{ asset('/img/identity/' . $data->identity_file) }}')">
+                                    {{ $data->identity }}
+                                </button>
                             </td>
                             <td>
-                                <a href="{{ asset('/img/identity/' . $data->identity_file) }}" target="_blank"
-                                    class="btn btn-sm btn-primary active">
-                                    Unduh Identitas
-                                </a>
+                                <button type="button" class="btn btn-sm btn-primary"
+                                    onclick="previewFile('{{ asset('/img/photo/' . $data->photo_file) }}')">
+                                    Foto
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary"
+                                    onclick="previewFile('{{ asset('/img/swab/' . $data->swab_file) }}')">
+                                    Swab/Test
+                                </button>
                             </td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
@@ -167,6 +176,27 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<div class="modal" tabindex="-1" role="dialog" id="preview-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">File Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="preview-modal-body">
+                <img src="" class="img-fluid img-thumbnail" style="display: block;
+                margin-left: auto;
+                margin-right: auto;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('css')
@@ -200,6 +230,11 @@
                 }
             }
         })
+    }
+
+    function previewFile(fileUrl) {
+        $("#preview-modal img").attr('src', fileUrl);
+        $("#preview-modal").modal('show');
     }
 </script>
 @endsection
