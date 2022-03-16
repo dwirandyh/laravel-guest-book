@@ -148,22 +148,22 @@
 
                         <div class="row">
                             <div class="col-12">
+                              <label>Status Hijau Vaksin & Covid</label>
+                              @if($errors->has('swab_file'))
+                              <div class="text-danger">{{ $errors->first('swab_file') }}</div>
+                              @endif
+                            </div>
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label>Hasil Swab/Test</label>
-                                    @if($errors->has('swab_file'))
-                                    <div class="text-danger">{{ $errors->first('swab_file') }}</div>
-                                    @endif
-                                    <div class="col-12">
-                                        <div id="camera-result-swab"></div>
+                                    <label>Contoh Gambar:</label>
+                                    <div class="text-center">
+                                    <img src="{{ asset('vaksin-status.jpeg') }}" class="img-fluid" style="max-width: 50%; margin-bottom: 20px;">
                                     </div>
-                                    <br>
-                                    <input type="hidden" name="swab_file" class="image-field-swab">
-                                    <button type="button" onclick="openCameraDialog('swab')"
-                                        class="btn btn-primary btn-block">Buka
-                                        Kamera</a>
+                                    <input type="file" name="swab_file" class="image-field-swab">
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="form-group">
                             <label>No Telepon</label>
@@ -316,8 +316,6 @@
                 });
 
                 title = "Foto Wajah";
-            } else if (id == "swab") {
-                title = "Foto Hasil Swab/Test";
             }
 
             Webcam.attach('#my_camera');

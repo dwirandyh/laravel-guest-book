@@ -142,6 +142,24 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-12">
+                              <label>Status Hijau Vaksin & Covid</label>
+                              @if($errors->has('swab_file'))
+                              <div class="text-danger">{{ $errors->first('swab_file') }}</div>
+                              @endif
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Contoh Gambar:</label>
+                                    <div class="text-center">
+                                    <img src="{{ asset('vaksin-status.jpeg') }}" class="img-fluid" style="max-width: 50%; margin-bottom: 20px;">
+                                    </div>
+                                    <input type="file" name="swab_file" class="image-field-swab">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>No Telepon</label>
                             <input type="text" name="phone_number" class="form-control"

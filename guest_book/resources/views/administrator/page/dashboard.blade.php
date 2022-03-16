@@ -86,7 +86,7 @@
                             <td>
                                 <button type="button" class="btn btn-sm btn-primary"
                                     onclick="previewFile('{{ asset('/img/swab/' . $data->swab_file) }}')">
-                                    Swab/Test
+                                    Status Vaksin
                                 </button>
                             </td>
                             <td>{{ $data->name }}</td>
@@ -127,7 +127,7 @@
                             <th>ID</th>
                             <th>Tgl Check In</th>
                             <th>Perkiraan Checkout</th>
-                            <th colspan="2">Identitas</th>
+                            <th colspan="4">Identitas</th>
                             <th>Nama Tamu</th>
                             <th>Email</th>
                             <th>Instansi</th>
@@ -150,10 +150,22 @@
                                 {{ $data->identity }}
                             </td>
                             <td>
-                                <a href="{{ asset('/img/identity/' . $data->identity_file) }}" target="_blank"
-                                    class="btn btn-sm btn-primary active">
-                                    Unduh Identitas
-                                </a>
+                              <button type="button" class="btn btn-sm btn-primary"
+                                    onclick="previewFile('{{ asset('/img/identity/' . $data->identity_file) }}')">
+                                    {{ $data->identity }}
+                              </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary"
+                                    onclick="previewFile('{{ asset('/img/photo/' . $data->photo_file) }}')">
+                                    Foto
+                                </button>
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-sm btn-primary"
+                                    onclick="previewFile('{{ asset('/img/swab/' . $data->swab_file) }}')">
+                                    Status Vaksin
+                              </button>
                             </td>
                             <td>{{ $data->name }} <b>{{ ($data->is_leader == 1 ? ' (Ketua)' : '' )}}</b></td>
                             <td>{{ $data->email }}</td>

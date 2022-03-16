@@ -33,6 +33,7 @@ class CompanyController extends Controller
             'identity_id' => 'required',
             'identity_file' => 'required',
             'photo_file' => 'required',
+            'swab_file' => 'required',
             'phone_number' => 'required',
             'company' => 'required',
             'role' => 'required',
@@ -54,6 +55,7 @@ class CompanyController extends Controller
             'identity_id' => $request->post('identity_id'),
             'identity_file' => 'identity-' . time() . '.jpg',
             'photo_file' => 'photo-' . time() . '.jpg',
+            'swab_file' => 'swab-' . time() . '.jpg',
             'phone_number' => $request->post('phone_number'),
             'company' => $request->post('company'),
             'role' => $request->post('role'),
@@ -65,6 +67,7 @@ class CompanyController extends Controller
 
         $this->saveIdentityFile($input['identity_file'], $request->post('identity_file'));
         $this->savePhotoFile($input['photo_file'], $request->post('photo_file'));
+        $this->saveSwabFile($input['swab_file'], $request->post('swab_file'));
 
         CompanyGuest::create($input);
 
@@ -80,6 +83,12 @@ class CompanyController extends Controller
     private function savePhotoFile($imageName, $image)
     {
         $path = public_path() . '/img/photo/' . $imageName;
+        Image::make(file_get_contents($image))->save($path);
+    }
+
+    private function saveSwabFile($imageName, $image)
+    {
+        $path = public_path() . '/img/swab/' . $imageName;
         Image::make(file_get_contents($image))->save($path);
     }
 }
